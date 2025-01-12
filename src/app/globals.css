@@ -1,0 +1,21 @@
+/* globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --background: #ffffff;
+    --foreground: #171717;
+    --color-primary-bg: #ff4869;
+    --color-primary: #ff3c60;
+    --color-secondary: #fec300;
+    --color-bg-default: #fafafa;
+    --color-bg-pink: #ffe6eb;
+    --color-bg-yellow: #fff8e1;
+}
+
+body {
+    color: var(--foreground);
+    background: var(--background);
+    font-family: Arial, Helvetica, sans-serif;
+}
