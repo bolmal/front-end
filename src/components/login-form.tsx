@@ -7,7 +7,15 @@ export default function LoginForm() {
     return (
         <div className="flex flex-col gap-2">
             <form>
-                <input placeholder="아이디" type="text" />
+                <input
+                    {...register('id', {
+                        required: true,
+                        minLength: 4,
+                        maxLength: { value: 16, message: '설정할 에러 메세지' },
+                    })}
+                    placeholder="아이디"
+                    type="text"
+                />
                 <input placeholder="비밀번호" type="password" />
                 <button>체크표시</button>
                 <p>아이디 저장</p>
