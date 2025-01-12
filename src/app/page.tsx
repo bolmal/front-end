@@ -1,3 +1,10 @@
 export default function Home() {
-    return <div>볼래말래</div>;
+    return (
+        <div className="">
+            <div>
+                <h1 className="text-primary text-2xl">Hello World</h1>
+                <div className="bg-bg-default">adsf</div>
+            </div>
+        </div>
+    );
 }
