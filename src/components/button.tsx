@@ -28,10 +28,10 @@ const getButtonSize = (size: ButtonSize) => {
             `;
         case 'large':
             return css`
-                height: 45px;
+                height: 60px;
                 width: 500px;
                 padding: 14px 14px;
-                font-size: 14px;
+                font-size: 20px;
             `;
         default:
             return css`

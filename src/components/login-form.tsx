@@ -1,41 +1,78 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import Button from './button';
+import { useRouter } from 'next/navigation';
+
+interface HookFormType {
+    id: string;
+    password: string;
+}
 
 export default function LoginForm() {
-    const { register } = useForm();
+    const router = useRouter();
+    const {
+        register,
+        handleSubmit,
+        getValues,
+        setError,
+        formState: { errors },
+    } = useForm<HookFormType>();
+    const checkIdPw = () => {
+        setError('password', { message: '비밀번호 또는 아이디가 일치하지 않습니다' });
+    };
+
+    const toSignUp = () => {
+        router.push('/sign-up');
+    };
+
+    const onValid: SubmitHandler<HookFormType> = () => {
+        const id = getValues('id');
+        const pw = getValues('password');
+        console.log('ok', id, pw);
+    };
+    const onInValid: SubmitErrorHandler<HookFormType> = () => {
+        console.error('no');
+        checkIdPw();
+    };
     return (
-        <div className="flex flex-col gap-2 justify-center items-center">
-            <form className="flex flex-col gap-4">
-                <input
-                    {...register('id', {
-                        required: true,
-                        minLength: 4,
-                        maxLength: { value: 16, message: '설정할 에러 메세지' },
-                    })}
-                    placeholder="아이디"
-                    type="text"
-                    className="bg-bg-default w-[500px] h-[64px] rounded-[20px] border-[1px]"
-                />
-                <input
-                    {...register('password', { required: true, minLength: 8, maxLength: 16 })}
-                    placeholder="비밀번호"
-                    type="password"
-                    className="bg-bg-default w-[500px] h-[64px] rounded-[20px] border-[1px]"
-                />
-                <div className="flex flex-row gap-2">
+        <div className="flex flex-col justify-center items-center">
+            <form className="flex flex-col" onSubmit={handleSubmit(onValid, onInValid)}>
+                <div className="flex flex-col gap-2">
+                    <input
+                        {...register('id', {
+                            required: true,
+                            minLength: 4,
+                            maxLength: { value: 16, message: '설정할 에러 메세지' },
+                        })}
+                        placeholder="아이디"
+                        type="text"
+                        className="bg-bg-default w-[500px] h-[64px] rounded-[20px] border-[1px]"
+                    />
+                    <input
+                        {...register('password', { required: true, minLength: 8, maxLength: 16 })}
+                        placeholder="비밀번호"
+                        type="password"
+                        className="bg-bg-default w-[500px] h-[64px] rounded-[20px] border-[1px]"
+                    />
+                </div>
+                <div className="flex flex-row gap-2 mt-5 mb-9">
                     <input type="checkbox" />
-                    <p>아이디 저장</p>
+                    <div className="flex flex-row w-full justify-between">
+                        <p>아이디 저장</p>
+                        {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
+                    </div>
                 </div>
                 <Button size="large">로그인</Button>
             </form>
-            <div className="flex flex-row gap-2">
-                <button>아이디 찾기</button>
-                <p>|</p>
-                <button>비밀번호 찾기</button>
-                <p>|</p>
-                <button>회원가입</button>
+            <div className="flex flex-row gap-2 mt-10">
+                <button className="text-[#686868]">아이디 찾기</button>
+                <p className="text-[#C7C7C7]">|</p>
+                <button className="text-[#686868]">비밀번호 찾기</button>
+                <p className="text-[#C7C7C7]">|</p>
+                <button onClick={toSignUp} className="text-[#ff4869]">
+                    회원가입
+                </button>
             </div>
             <div>
                 <button>카카오</button>
