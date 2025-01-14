@@ -1,12 +1,13 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
+import Button from './button';
 
 export default function LoginForm() {
     const { register } = useForm();
     return (
-        <div className="flex flex-col gap-2">
-            <form>
+        <div className="flex flex-col gap-2 justify-center items-center">
+            <form className="flex flex-col gap-4">
                 <input
                     {...register('id', {
                         required: true,
@@ -15,13 +16,21 @@ export default function LoginForm() {
                     })}
                     placeholder="아이디"
                     type="text"
+                    className="bg-bg-default w-[500px] h-[64px] rounded-[20px] border-[1px]"
                 />
-                <input placeholder="비밀번호" type="password" />
-                <button>체크표시</button>
-                <p>아이디 저장</p>
-                <button type="submit">로그인</button>
+                <input
+                    {...register('password', { required: true, minLength: 8, maxLength: 16 })}
+                    placeholder="비밀번호"
+                    type="password"
+                    className="bg-bg-default w-[500px] h-[64px] rounded-[20px] border-[1px]"
+                />
+                <div className="flex flex-row gap-2">
+                    <input type="checkbox" />
+                    <p>아이디 저장</p>
+                </div>
+                <Button size="large">로그인</Button>
             </form>
-            <div className="flex">
+            <div className="flex flex-row gap-2">
                 <button>아이디 찾기</button>
                 <p>|</p>
                 <button>비밀번호 찾기</button>
