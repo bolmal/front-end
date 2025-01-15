@@ -3,6 +3,7 @@
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import Button from './button';
 import { useRouter } from 'next/navigation';
+import { useStore } from '@/hooks/useUserInfo';
 
 interface HookFormType {
     id: string;
@@ -26,10 +27,55 @@ export default function LoginForm() {
         router.push('/sign-up');
     };
 
+    const login = useStore((state) => state.login);
+
     const onValid: SubmitHandler<HookFormType> = () => {
         const id = getValues('id');
         const pw = getValues('password');
+        login(
+            1, // userId
+            id, // userName (여기선 id 값 사용)
+            '2024-03-14', // onCommingDate
+            5, // alarmTicketCnt
+            3, // zzimTicketCnt
+            false // isSubscribe
+        );
+        // 로그인 성공 시 홈으로 페이지 이동
+        router.push('/');
         console.log('ok', id, pw);
+        /* 
+        실제 API 사용할 때 예시
+        try {
+        // API 호출 예시
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id, password: pw }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Login failed');
+        }
+
+        const userData = await response.json();
+        
+        login(
+            userData.id,
+            userData.name,
+            userData.onCommingDate,
+            userData.alarmTicketCnt,
+            userData.zzimTicketCnt,
+            userData.isSubscribe
+        );
+
+        router.push('/');
+    } catch (error) {
+        console.error('Login error:', error);
+        checkIdPw();
+    }
+        */
     };
     const onInValid: SubmitErrorHandler<HookFormType> = () => {
         console.error('no');
