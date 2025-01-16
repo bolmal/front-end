@@ -4,6 +4,7 @@ import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import Button from './button';
 import { useRouter } from 'next/navigation';
 import { useStore } from '@/hooks/useUserInfo';
+import { useEffect } from 'react';
 
 interface HookFormType {
     id: string;
@@ -28,6 +29,12 @@ export default function LoginForm() {
     };
 
     const login = useStore((state) => state.login);
+    const userName = useStore((state) => state.name);
+    useEffect(() => {
+        if (userName) {
+            console.log('유저이름 :', userName);
+        }
+    }, [userName]);
 
     const onValid: SubmitHandler<HookFormType> = () => {
         const id = getValues('id');
@@ -41,7 +48,6 @@ export default function LoginForm() {
             false // isSubscribe
         );
         // 로그인 성공 시 홈으로 페이지 이동
-        router.push('/');
         console.log('ok', id, pw);
         /* 
         실제 API 사용할 때 예시
