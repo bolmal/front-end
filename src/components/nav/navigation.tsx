@@ -2,6 +2,7 @@ import Image from 'next/image';
 import logo from '../../../public/ㅂㄹㅁㄹ.svg';
 import UserOption from './user-option';
 import Search from './search';
+import Menu from './menu';
 
 export default function Navigation() {
     return (
@@ -14,7 +15,9 @@ export default function Navigation() {
                     </div>
                     <UserOption />
                 </div>
-                <div>메뉴들</div>
+            </div>
+            <div className="px-20 py-0">
+                <Menu></Menu>
             </div>
         </nav>
     );
