@@ -18,9 +18,7 @@ export default function Navigation() {
         return (
             <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b">
                 <div className="flex items-center justify-center h-[80px]">
-                    <div className="flex items-center">
-                        <Image onClick={handleLogo} src={logo} alt="볼래말래" className="cursor-pointer" />
-                    </div>
+                    <Image onClick={handleLogo} src={logo} alt="볼래말래" className="cursor-pointer" />
                 </div>
             </nav>
         );
