@@ -8,8 +8,17 @@ export default function UserOption() {
     const userName = useStore((state) => state.name);
 
     if (isLoggedIn) {
-        return <div>{userName}</div>;
+        return (
+            <div className="flex items-center gap-4">
+                <span className="text-primary font-medium">{userName}</span>
+                <button className="text-gray-600 hover:text-primary">로그아웃</button>
+            </div>
+        );
     } else {
-        return <Link href={'/login'}>로그인/회원가입</Link>;
+        return (
+            <Link href="/login" className="text-gray-600 hover:text-primary transition-colors">
+                로그인/회원가입
+            </Link>
+        );
     }
 }
