@@ -7,7 +7,7 @@ import Menu from './menu';
 export default function Navigation() {
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b">
-            <div className="mx-auto px-20 py-5">
+            <div className="mx-auto px-20 py-5 h-[80px]">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-8">
                         <Image src={logo} alt="볼래말래" className="cursor-pointer" />
@@ -16,7 +16,7 @@ export default function Navigation() {
                     <UserOption />
                 </div>
             </div>
-            <div className="px-20 py-0">
+            <div className="px-20 h-[50px]">
                 <Menu></Menu>
             </div>
         </nav>

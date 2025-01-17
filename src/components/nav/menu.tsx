@@ -14,13 +14,13 @@ export default function Menu() {
     ];
 
     return (
-        <div className="flex gap-8">
+        <div className="flex gap-8 h-full">
             {menuItems.map((item) => (
                 <Link
                     key={item.path}
                     href={item.path}
-                    className={`font-medium hover:text-primary transition-colors pb-2 ${
-                        pathname === item.path ? 'text-primary border-b-2 border-primary-bg' : 'text-gray-600'
+                    className={`font-medium hover:text-primary transition-colors h-full flex items-center ${
+                        pathname === item.path ? 'text-primary border-b-[3px] border-primary-bg' : 'text-gray-600'
                     }`}
                 >
                     {item.name}
