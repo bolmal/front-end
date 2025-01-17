@@ -10,61 +10,61 @@ export default function SignUp() {
                 <div className="w-[500px]">
                     <p className="font-[600] text-[20px]">아이디</p>
                     <div className="flex flex-row">
-                        <input className="w-full" />
+                        <input className="p-3 border rounded-lg w-full" />
                         <Button size="small">중복 확인</Button>
                     </div>
                 </div>
                 <div className="w-[500px]">
                     <p className="font-[600] text-[20px]">비밀번호</p>
                     <div className="flex flex-row">
-                        <input className="w-full" />
+                        <input className="p-3 border rounded-lg w-full" />
                     </div>
                 </div>
                 <div className="w-[500px]">
                     <p className="font-[600] text-[20px]">비밀번호 확인</p>
                     <div className="flex flex-row">
-                        <input className="w-full" />
+                        <input className="p-3 border rounded-lg w-full" />
                     </div>
                 </div>
                 <div className="w-[500px]">
                     <p className="font-[600] text-[20px]">이름</p>
                     <div className="flex flex-row">
-                        <input className="w-full" />
+                        <input className="p-3 border rounded-lg w-full" />
                     </div>
                 </div>
                 <div className="w-[500px]">
                     <p className="font-[600] text-[20px]">아이디</p>
                     <div className="flex flex-row">
-                        <input className="w-full" />
+                        <input className="p-3 border rounded-lg w-full" />
                     </div>
                 </div>
                 <div className="w-[500px]">
                     <p className="font-[600] text-[20px]">성별</p>
                     <div className="flex flex-row">
-                        <input className="w-full" />
+                        <input className="p-3 border rounded-lg w-full" />
                     </div>
                 </div>
                 <div className="w-[500px]">
                     <p className="font-[600] text-[20px]">생년월일</p>
                     <div className="flex flex-row">
-                        <input className="w-full" />
+                        <input className="p-3 border rounded-lg w-full" />
                     </div>
                 </div>
                 <div className="w-[500px]">
                     <p className="font-[600] text-[20px]">이메일</p>
                     <div className="flex flex-row">
-                        <input className="w-full" />
+                        <input className="p-3 border rounded-lg w-full" />
                     </div>
                 </div>
                 <div className="w-[500px]">
                     <p className="font-[600] text-[20px]">휴대폰 번호</p>
-                    <div className="flex flex-row">
-                        <input className="w-full" />
-                        <input className="w-full" />
-                        <input className="w-full" />
-                        <Button className="w-full" size="small">
-                            인증하기
-                        </Button>
+                    <div className="flex flex-row gap-2">
+                        <div className="w-full flex">
+                            <input className="p-3 border rounded-lg w-[110px] h-[64px]" />
+                            <input className="p-3 border rounded-lg w-[110px] h-[64px]" />
+                            <input className="p-3 border rounded-lg w-[110px] h-[64px]" />
+                        </div>
+                        <Button size="small">인증하기</Button>
                     </div>
                 </div>
                 <Button size="large">회원가입 완료</Button>
