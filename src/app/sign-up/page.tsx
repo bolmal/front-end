@@ -61,7 +61,13 @@ export default function SignUp() {
         // router.push('/login');
     };
     const [passwordValue, setPasswordValue] = React.useState('');
-    const { handleSubmit, register } = useForm<SignUpForm>({
+    const {
+        handleSubmit,
+        register,
+        getValues,
+        setError,
+        formState: { errors },
+    } = useForm<SignUpForm>({
         mode: 'onBlur', // 유효성 검사 실행 시점 (onChange일 때는 렌더링 과도화 -> onBlur로 변경)
     });
 
@@ -71,6 +77,17 @@ export default function SignUp() {
         hasSpecial: /[!@#$%^&*(),.?":{}|<>]/.test(passwordValue),
     };
 
+    const checkDuplicate = () => {
+        // const id = getValues('id');
+        /*
+        id로 api 호출해서 중복 유무 검사
+        */
+        const response = false;
+        if (!response) {
+            setError('id', { message: '이미 누군가 사용중인 아이디입니다.' });
+        }
+        return response;
+    };
     return (
         <div className="flex justify-center items-center min-h-screen ">
             <form className="flex flex-col w-full max-w-md mx-auto gap-9" onSubmit={handleSubmit(onValid)}>
@@ -85,10 +102,11 @@ export default function SignUp() {
                             placeholder="영어 소문자, 숫자 4-16자"
                             className="p-3 border rounded-[20px] h-[64px] w-[350px]"
                         />
-                        <Button type="button" size="small">
+                        <Button type="button" size="small" handleClick={checkDuplicate}>
                             중복 확인
                         </Button>
-                    </div>
+                    </div>{' '}
+                    {errors.id && <p className="text-red-500 text-sm p-2">{errors.id.message}</p>}
                 </div>
                 <div>
                     <div className="w-[500px]">
@@ -102,7 +120,7 @@ export default function SignUp() {
                                 })}
                                 placeholder="영문, 숫자, 특수문자 8-12자"
                                 className="p-3 border rounded-[20px] w-full h-[64px]"
-                            />
+                            />{' '}
                         </div>
                     </div>
                     <div className="flex mt-2 gap-2">
