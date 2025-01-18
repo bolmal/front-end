@@ -2,6 +2,7 @@
 
 import Button from '@/components/button';
 import { useRouter } from 'next/navigation';
+import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 interface HookFormType {
@@ -18,12 +19,46 @@ interface HookFormType {
     confirmCode: string;
 }
 
+interface ValidationCheckboxProps {
+    isValid: boolean;
+    text: string;
+}
+
+// 유효성 체크박스
+const ValidationCheckbox = ({ isValid, text }: ValidationCheckboxProps) => {
+    return (
+        <div className="flex items-center gap-2">
+            <div
+                className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors duration-200 
+                ${isValid ? 'bg-primary' : 'bg-white border-gray-200 border-2'}`}
+            >
+                {isValid ? (
+                    <div className="w-2 h-[5px] border-l-2 border-b-2 border-white transform -rotate-45 mt-[-2px]" />
+                ) : (
+                    <div className="w-2 h-[5px] border-l-2 border-b-2 border-gray-200 transform -rotate-45 mt-[-2px]" />
+                )}
+            </div>
+            <span className="text-sm">{text}</span>
+        </div>
+    );
+};
+
 export default function SignUp() {
     const router = useRouter();
-    const { handleSubmit, register } = useForm<HookFormType>();
     const onValid: SubmitHandler<HookFormType> = () => {
         router.push('/login');
     };
+    const [passwordValue, setPasswordValue] = React.useState('');
+    const { handleSubmit, register } = useForm<HookFormType>({
+        mode: 'onChange',
+    });
+
+    const validations = {
+        hasLetter: /[a-zA-Z]/.test(passwordValue),
+        hasNumber: /[0-9]/.test(passwordValue),
+        hasSpecial: /[!@#$%^&*(),.?":{}|<>]/.test(passwordValue),
+    };
+
     return (
         <div className="flex justify-center items-center min-h-screen ">
             <form className="flex flex-col w-full max-w-md mx-auto gap-9" onSubmit={handleSubmit(onValid)}>
@@ -41,14 +76,25 @@ export default function SignUp() {
                         <Button size="small">중복 확인</Button>
                     </div>
                 </div>
-                <div className="w-[500px]">
-                    <p className="font-[600] text-[20px]">비밀번호</p>
-                    <div className="flex flex-row">
-                        <input
-                            {...register('password')}
-                            placeholder="영문, 숫자, 특수문자 8-12자"
-                            className="p-3 border rounded-[20px] w-full h-[64px]"
-                        />
+                <div>
+                    <div className="w-[500px]">
+                        <p className="font-[600] text-[20px]">비밀번호</p>
+                        <div className="flex flex-row">
+                            <input
+                                type="password"
+                                {...register('password', {
+                                    required: true,
+                                    onChange: (e) => setPasswordValue(e.target.value),
+                                })}
+                                placeholder="영문, 숫자, 특수문자 8-12자"
+                                className="p-3 border rounded-[20px] w-full h-[64px]"
+                            />
+                        </div>
+                    </div>
+                    <div className="flex mt-2 gap-2">
+                        <ValidationCheckbox isValid={validations.hasLetter} text="영문" />
+                        <ValidationCheckbox isValid={validations.hasNumber} text="숫자" />
+                        <ValidationCheckbox isValid={validations.hasSpecial} text="특수문자" />
                     </div>
                 </div>
                 <div className="w-[500px]">
@@ -66,19 +112,37 @@ export default function SignUp() {
                 <div className="w-[500px]">
                     <p className="font-[600] text-[20px]">성별</p>
                     <div className="flex flex-row">
-                        <input {...register('gender')} className="p-3 border rounded-[20px] w-full h-[64px]" />
+                        <select
+                            defaultValue="default"
+                            {...register('gender')}
+                            className="p-3 border rounded-[20px] w-full h-[64px]"
+                        >
+                            <option value="default" disabled>
+                                성별을 선택하세요
+                            </option>
+                            <option value="femail">여성</option>
+                            <option value="male">남성</option>
+                        </select>
                     </div>
                 </div>
                 <div className="w-[500px]">
                     <p className="font-[600] text-[20px]">생년월일</p>
                     <div className="flex flex-row">
-                        <input {...register('birth')} className="p-3 border rounded-[20px] w-full h-[64px]" />
+                        <input
+                            type="date"
+                            {...register('birth')}
+                            className="p-3 border rounded-[20px] w-full h-[64px]"
+                        />
                     </div>
                 </div>
                 <div className="w-[500px]">
                     <p className="font-[600] text-[20px]">이메일</p>
                     <div className="flex flex-row">
-                        <input {...register('email')} className="p-3 border rounded-[20px] w-full h-[64px]" />
+                        <input
+                            type="email"
+                            {...register('email')}
+                            className="p-3 border rounded-[20px] w-full h-[64px]"
+                        />
                     </div>
                 </div>
                 <div className="w-[500px]">
