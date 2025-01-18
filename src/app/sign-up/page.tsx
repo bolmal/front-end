@@ -1,11 +1,11 @@
 'use client';
 
 import Button from '@/components/button';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-interface HookFormType {
+interface SignUpForm {
     id: string;
     password: string;
     passwordCheck: string;
@@ -13,10 +13,11 @@ interface HookFormType {
     gender: string;
     birth: string;
     email: string;
-    phone1: string;
-    phone2: string;
-    phone3: string;
-    confirmCode: string;
+    phone: {
+        phone1: string;
+        phone2: string;
+        phone3: string;
+    };
 }
 
 interface ValidationCheckboxProps {
@@ -44,13 +45,24 @@ const ValidationCheckbox = ({ isValid, text }: ValidationCheckboxProps) => {
 };
 
 export default function SignUp() {
-    const router = useRouter();
-    const onValid: SubmitHandler<HookFormType> = () => {
-        router.push('/login');
+    // const router = useRouter();
+    const onValid: SubmitHandler<SignUpForm> = (data) => {
+        const userInfo = {
+            id: data.id,
+            password: data.password,
+            name: data.name,
+            gender: data.gender,
+            birth: data.birth,
+            email: data.email,
+            phone: `${data.phone.phone1}-${data.phone.phone2}-${data.phone.phone3}`,
+        };
+
+        console.log(userInfo);
+        // router.push('/login');
     };
     const [passwordValue, setPasswordValue] = React.useState('');
-    const { handleSubmit, register } = useForm<HookFormType>({
-        mode: 'onChange',
+    const { handleSubmit, register } = useForm<SignUpForm>({
+        mode: 'onBlur', // 유효성 검사 실행 시점 (onChange일 때는 렌더링 과도화 -> onBlur로 변경)
     });
 
     const validations = {
@@ -69,11 +81,13 @@ export default function SignUp() {
                     <p className="font-[600] text-[20px]">아이디</p>
                     <div className="flex flex-row justify-between">
                         <input
-                            {...(register('id'), { required: true, minLength: 4, maxLength: 16 })}
+                            {...register('id', { required: true, minLength: 4, maxLength: 16 })}
                             placeholder="영어 소문자, 숫자 4-16자"
                             className="p-3 border rounded-[20px] h-[64px] w-[350px]"
                         />
-                        <Button size="small">중복 확인</Button>
+                        <Button type="button" size="small">
+                            중복 확인
+                        </Button>
                     </div>
                 </div>
                 <div>
@@ -100,7 +114,11 @@ export default function SignUp() {
                 <div className="w-[500px]">
                     <p className="font-[600] text-[20px]">비밀번호 확인</p>
                     <div className="flex flex-row">
-                        <input {...register('passwordCheck')} className="p-3 border rounded-[20px] w-full h-[64px]" />
+                        <input
+                            type="password"
+                            {...register('passwordCheck')}
+                            className="p-3 border rounded-[20px] w-full h-[64px]"
+                        />
                     </div>
                 </div>
                 <div className="w-[500px]">
@@ -149,9 +167,18 @@ export default function SignUp() {
                     <p className="font-[600] text-[20px]">휴대폰 번호</p>
                     <div className="flex flex-row gap-2">
                         <div className="w-full flex justify-between">
-                            <input {...register('phone1')} className="p-3 border rounded-[20px] w-[110px] h-[64px]" />
-                            <input {...register('phone2')} className="p-3 border rounded-[20px] w-[110px] h-[64px]" />
-                            <input {...register('phone3')} className="p-3 border rounded-[20px] w-[110px] h-[64px]" />
+                            <input
+                                {...register('phone.phone1')}
+                                className="p-3 border rounded-[20px] w-[110px] h-[64px]"
+                            />
+                            <input
+                                {...register('phone.phone2')}
+                                className="p-3 border rounded-[20px] w-[110px] h-[64px]"
+                            />
+                            <input
+                                {...register('phone.phone3')}
+                                className="p-3 border rounded-[20px] w-[110px] h-[64px]"
+                            />
                             <Button size="small">인증하기</Button>
                         </div>
                     </div>
