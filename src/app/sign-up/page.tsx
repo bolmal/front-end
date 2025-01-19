@@ -1,7 +1,7 @@
 'use client';
 
 import Button from '@/components/button';
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
@@ -45,26 +45,30 @@ const ValidationCheckbox = ({ isValid, text }: ValidationCheckboxProps) => {
 };
 
 export default function SignUp() {
-    // const router = useRouter();
+    const router = useRouter();
     const onValid: SubmitHandler<SignUpForm> = (data) => {
-        const userInfo = {
-            id: data.id,
-            password: data.password,
-            name: data.name,
-            gender: data.gender,
-            birth: data.birth,
-            email: data.email,
-            phone: `${data.phone.phone1}-${data.phone.phone2}-${data.phone.phone3}`,
-        };
+        if (checkDuplicate()) {
+            const userInfo = {
+                id: data.id,
+                password: data.password,
+                name: data.name,
+                gender: data.gender,
+                birth: data.birth,
+                email: data.email,
+                phone: `${data.phone.phone1}-${data.phone.phone2}-${data.phone.phone3}`,
+            };
 
-        console.log(userInfo);
-        // router.push('/login');
+            console.log(userInfo);
+            router.push('/login');
+        } else {
+            setError('id', { message: '아이디 중복 확인이 필요합니다.' });
+        }
     };
     const [passwordValue, setPasswordValue] = React.useState('');
     const {
         handleSubmit,
         register,
-        // getValues,
+        getValues,
         setError,
         formState: { errors },
     } = useForm<SignUpForm>({
@@ -78,19 +82,22 @@ export default function SignUp() {
     };
 
     const checkDuplicate = () => {
-        // const id = getValues('id');
-        /*
-        id로 api 호출해서 중복 유무 검사
-        */
-        const response = false;
+        const id = getValues('id');
+        let response = true;
+
+        if (id === 'asdfasdf') {
+            response = false;
+        }
+
         if (!response) {
             setError('id', { message: '이미 누군가 사용중인 아이디입니다.' });
         }
+
         return response;
     };
     return (
         <div className="flex justify-center items-center min-h-screen ">
-            <form className="flex flex-col w-full max-w-md mx-auto gap-9" onSubmit={handleSubmit(onValid)}>
+            <form className="flex flex-col w-full max-w-md mx-auto gap-8" onSubmit={handleSubmit(onValid)}>
                 <div className="flex flex-col justify-center items-center">
                     <p className="font-[600] text-[25px]">정보를 입력해 회원가입을 완료해 주세요.</p>
                 </div>
@@ -106,7 +113,7 @@ export default function SignUp() {
                             중복 확인
                         </Button>
                     </div>{' '}
-                    {errors.id && <p className="text-red-500 text-sm p-2">{errors.id.message}</p>}
+                    {errors.id && <p className="text-red-500 text-sm pt-2 pl-1">{errors.id.message}</p>}
                 </div>
                 <div>
                     <div className="w-[500px]">
@@ -117,11 +124,15 @@ export default function SignUp() {
                                 {...register('password', {
                                     required: true,
                                     onChange: (e) => setPasswordValue(e.target.value),
+                                    validate: () =>
+                                        (validations.hasLetter && validations.hasNumber && validations.hasSpecial) ||
+                                        '유효성 체크를 지켜주세요',
                                 })}
                                 placeholder="영문, 숫자, 특수문자 8-12자"
                                 className="p-3 border rounded-[20px] w-full h-[64px]"
                             />{' '}
                         </div>
+                        {errors.password && <p className="text-red-500 text-sm pt-2 pl-1">{errors.password.message}</p>}
                     </div>
                     <div className="flex mt-2 gap-2">
                         <ValidationCheckbox isValid={validations.hasLetter} text="영문" />
@@ -133,24 +144,35 @@ export default function SignUp() {
                     <p className="font-[600] text-[20px]">비밀번호 확인</p>
                     <div className="flex flex-row">
                         <input
+                            {...register('passwordCheck', {
+                                validate: (value) => value === passwordValue || '비밀번호가 일치하지 않습니다', //(value) => (value === passwordValue) || '비밀번호가 일치하지 않습니다'
+                            })}
                             type="password"
-                            {...register('passwordCheck')}
                             className="p-3 border rounded-[20px] w-full h-[64px]"
                         />
                     </div>
+                    {errors.passwordCheck && (
+                        <p className="text-red-500 text-sm pt-2 pl-1">{errors.passwordCheck.message}</p>
+                    )}
                 </div>
                 <div className="w-[500px]">
                     <p className="font-[600] text-[20px]">이름</p>
                     <div className="flex flex-row">
-                        <input {...register('name')} className="p-3 border rounded-[20px] w-full h-[64px]" />
+                        <input
+                            {...register('name', { required: true })}
+                            className="p-3 border rounded-[20px] w-full h-[64px]"
+                        />
                     </div>
+                    {errors.name && <p className="text-red-500 text-sm pt-2 pl-1">이름은 필수 입력 항목입니다.</p>}
                 </div>
                 <div className="w-[500px]">
                     <p className="font-[600] text-[20px]">성별</p>
                     <div className="flex flex-row">
                         <select
                             defaultValue="default"
-                            {...register('gender')}
+                            {...register('gender', {
+                                validate: (value) => value !== 'default' || '성별을 선택해주세요',
+                            })}
                             className="p-3 border rounded-[20px] w-full h-[64px]"
                         >
                             <option value="default" disabled>
@@ -160,16 +182,20 @@ export default function SignUp() {
                             <option value="male">남성</option>
                         </select>
                     </div>
+                    {errors.gender && <p className="text-red-500 text-sm pt-2 pl-1">{errors.gender.message}</p>}
                 </div>
                 <div className="w-[500px]">
                     <p className="font-[600] text-[20px]">생년월일</p>
                     <div className="flex flex-row">
                         <input
                             type="date"
-                            {...register('birth')}
+                            {...register('birth', {
+                                validate: (value) => value !== '' || '날짜를 골라주세요',
+                            })}
                             className="p-3 border rounded-[20px] w-full h-[64px]"
                         />
                     </div>
+                    {errors.birth && <p className="text-red-500 text-sm pt-2 pl-1">{errors.birth.message}</p>}
                 </div>
                 <div className="w-[500px]">
                     <p className="font-[600] text-[20px]">이메일</p>
