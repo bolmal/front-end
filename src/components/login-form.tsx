@@ -48,6 +48,7 @@ export default function LoginForm() {
             false // isSubscribe
         );
         // 로그인 성공 시 홈으로 페이지 이동
+        router.push('/');
         console.log('ok', id, pw);
         /* 
         실제 API 사용할 때 예시
