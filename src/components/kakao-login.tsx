@@ -25,5 +25,5 @@ export default function KakaoLogin() {
         await signIn('kakao');
     };
 
-    return <div onClick={loginKakao}>카카오</div>;
+    return <button onClick={loginKakao}>카카오</button>;
 }
