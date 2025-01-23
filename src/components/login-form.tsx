@@ -5,6 +5,7 @@ import Button from './button';
 import { useRouter } from 'next/navigation';
 import { useStore } from '@/hooks/useUserInfo';
 import { useEffect } from 'react';
+import KakaoLogin from './kakao-login';
 
 interface HookFormType {
     id: string;
@@ -128,7 +129,7 @@ export default function LoginForm() {
                 </button>
             </div>
             <div>
-                <button>카카오</button>
+                <KakaoLogin></KakaoLogin>
                 <button>네이버</button>
             </div>
         </div>
