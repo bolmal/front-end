@@ -6,13 +6,13 @@ import Link from 'next/link';
 export default function UserOption() {
     const isLoggedIn = useStore((state) => state.isLoggedIn);
     const userName = useStore((state) => state.name);
-    const logout = useStore((state) => state.logout);
+    const removeUserState = useStore((state) => state.removeUserState);
 
     if (isLoggedIn) {
         return (
             <div className="flex items-center gap-4">
                 <span className="text-primary font-medium">{userName}</span>
-                <button onClick={logout} className="text-gray-600 hover:text-primary">
+                <button onClick={removeUserState} className="text-gray-600 hover:text-primary">
                     로그아웃
                 </button>
             </div>

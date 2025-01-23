@@ -29,7 +29,7 @@ export default function LoginForm() {
         router.push('/sign-up');
     };
 
-    const login = useStore((state) => state.login);
+    const setUserState = useStore((state) => state.setUserState);
     const userName = useStore((state) => state.name);
     useEffect(() => {
         if (userName) {
@@ -40,7 +40,7 @@ export default function LoginForm() {
     const onValid: SubmitHandler<HookFormType> = () => {
         const id = getValues('id');
         const pw = getValues('password');
-        login(
+        setUserState(
             1, // userId
             id, // userName (여기선 id 값 사용)
             '2024-03-14', // onCommingDate
