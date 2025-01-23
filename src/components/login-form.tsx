@@ -5,6 +5,7 @@ import Button from './button';
 import { useRouter } from 'next/navigation';
 import { useStore } from '@/hooks/useUserInfo';
 import { useEffect } from 'react';
+import KakaoLogin from './kakao-login';
 
 interface HookFormType {
     id: string;
@@ -28,7 +29,7 @@ export default function LoginForm() {
         router.push('/sign-up');
     };
 
-    const login = useStore((state) => state.login);
+    const setUserState = useStore((state) => state.setUserState);
     const userName = useStore((state) => state.name);
     useEffect(() => {
         if (userName) {
@@ -39,7 +40,7 @@ export default function LoginForm() {
     const onValid: SubmitHandler<HookFormType> = () => {
         const id = getValues('id');
         const pw = getValues('password');
-        login(
+        setUserState(
             1, // userId
             id, // userName (여기선 id 값 사용)
             '2024-03-14', // onCommingDate
@@ -128,7 +129,7 @@ export default function LoginForm() {
                 </button>
             </div>
             <div>
-                <button>카카오</button>
+                <KakaoLogin></KakaoLogin>
                 <button>네이버</button>
             </div>
         </div>
