@@ -40,6 +40,7 @@ export default function LoginForm() {
     const onValid: SubmitHandler<HookFormType> = () => {
         const id = getValues('id');
         const pw = getValues('password');
+        // 여기서 id pw 보내면 reponse로 유저 정보 반환해주는 fetch 추가
         setUserState(
             1, // userId
             id, // userName (여기선 id 값 사용)
