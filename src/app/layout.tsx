@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Navigation from '@/components/nav/navigation';
+import AuthProvider from '@/components/providers/SessionProvier';
 
 export const metadata: Metadata = {
     title: '볼래말래',
@@ -15,8 +16,10 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <Navigation></Navigation>
-                {children}
+                <AuthProvider>
+                    <Navigation></Navigation>
+                    {children}
+                </AuthProvider>
             </body>
         </html>
     );
