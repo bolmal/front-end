@@ -1,11 +1,12 @@
 import Ad from '@/components/ad';
+import Profile from '@/components/profile/profile';
 
 export default function Home() {
     return (
         <div>
-            <div className="bg-bg-default h-[383px] flex py-[20px] px-[120px]">
+            <div className="bg-bg-default flex py-[20px] px-[120px] justify-between">
                 <Ad></Ad>
-                <div>유저 프로필</div>
+                <Profile></Profile>
             </div>
         </div>
     );
