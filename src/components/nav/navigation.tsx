@@ -18,14 +18,14 @@ export default function Navigation() {
 
     return (
         <>
-            <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b">
+            <nav className="fixed px-[120px] z-50 bg-white border-b w-full">
                 {isLoginOrSignup ? (
                     <div className="flex items-center justify-center h-[80px]">
                         <Image onClick={handleLogo} src={logo} alt="볼래말래" className="cursor-pointer" />
                     </div>
                 ) : (
-                    <>
-                        <div className="mx-auto px-20 py-5 h-[80px]">
+                    <div className="w-full">
+                        <div className="py-5 h-[80px] w-full">
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-8">
                                     <Image onClick={handleLogo} src={logo} alt="볼래말래" className="cursor-pointer" />
@@ -34,10 +34,10 @@ export default function Navigation() {
                                 <UserOption />
                             </div>
                         </div>
-                        <div className="px-20 h-[50px]">
+                        <div className="h-[50px]">
                             <Menu />
                         </div>
-                    </>
+                    </div>
                 )}
             </nav>
             {/* 네비게이션 높이만큼 여백 */}

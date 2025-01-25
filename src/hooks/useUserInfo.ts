@@ -8,7 +8,7 @@ interface UserState {
     alarmTicket: number;
     zzimTicket: number;
     isSubscribe: boolean;
-    login: (
+    setUserState: (
         userId: number,
         userName: string,
         onCommingDate: string,
@@ -16,7 +16,7 @@ interface UserState {
         zzimTicketCnt: number,
         isSubscribe: boolean
     ) => void;
-    logout: () => void;
+    removeUserState: () => void;
 }
 
 export const useStore = create<UserState>((set) => ({
@@ -27,7 +27,7 @@ export const useStore = create<UserState>((set) => ({
     alarmTicket: 0,
     zzimTicket: 0,
     isSubscribe: false,
-    login: (
+    setUserState: (
         userId: number,
         userName: string,
         onCommingDate: string,
@@ -44,7 +44,7 @@ export const useStore = create<UserState>((set) => ({
             zzimTicket: zzimTicketCnt,
             isSubscribe: isSubscribe,
         }),
-    logout: () =>
+    removeUserState: () =>
         set({
             id: 0,
             name: '',
