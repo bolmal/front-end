@@ -47,7 +47,8 @@ export default function LoginForm() {
             '2024-03-14', // onCommingDate
             5, // alarmTicketCnt
             3, // zzimTicketCnt
-            false // isSubscribe
+            false, // isSubscribe
+            '' // imgUrl
         );
         // 로그인 성공 시 홈으로 페이지 이동
         router.push('/');
