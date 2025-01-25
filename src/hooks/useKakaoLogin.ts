@@ -9,7 +9,7 @@ export default function useKakaoLogin() {
         //name과 email로 서버에 fetch하는 내용
         //이 밑은 임시로 로그인하도록 구현
         console.log(email);
-        setUserState(1, name, '', 1, 1, true);
+        setUserState(1, name, '', 1, 1, true, '');
     };
 
     return handleKakaoLogin;
