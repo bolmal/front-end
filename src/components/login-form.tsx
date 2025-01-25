@@ -30,7 +30,7 @@ export default function LoginForm() {
     };
 
     const setUserState = useStore((state) => state.setUserState);
-    const userName = useStore((state) => state.name);
+    const userName = useStore((state) => state.userInfo.name);
     useEffect(() => {
         if (userName) {
             console.log('유저이름 :', userName);
@@ -47,7 +47,8 @@ export default function LoginForm() {
             '2024-03-14', // onCommingDate
             5, // alarmTicketCnt
             3, // zzimTicketCnt
-            false // isSubscribe
+            false, // isSubscribe
+            '' // imgUrl
         );
         // 로그인 성공 시 홈으로 페이지 이동
         router.push('/');

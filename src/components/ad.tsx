@@ -27,7 +27,7 @@ export default function Ad() {
     console.log(activeIdx);
     return (
         <div>
-            <div className="w-[894px] h-[343px]">
+            <div className="w-[62.08vw] h-[343px]">
                 <Swiper
                     onSwiper={setSwiper}
                     onSlideChange={(swiper) => setActiveIdx(swiper.realIndex)}
@@ -40,7 +40,7 @@ export default function Ad() {
                         <SwiperSlide key={index}>
                             <div className="flex items-center justify-center h-full">
                                 {ad.url ? (
-                                    <Image className="w-[894px] h-[320px]" src={ad.url} alt={ad.id} />
+                                    <Image className="w-[62.08vw] h-[320px]" src={ad.url} alt={ad.id} />
                                 ) : (
                                     <>없음</>
                                 )}
