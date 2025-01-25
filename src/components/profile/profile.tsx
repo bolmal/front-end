@@ -7,5 +7,9 @@ import ProfileLogout from './profile-logout';
 export default function Profile() {
     const userInfo = useStore((state) => state.userInfo);
 
-    return <div>{userInfo.isLoggedIn ? <ProfileLogin></ProfileLogin> : <ProfileLogout></ProfileLogout>}</div>;
+    return (
+        <div>
+            {userInfo.isLoggedIn ? <ProfileLogin userInfo={userInfo}></ProfileLogin> : <ProfileLogout></ProfileLogout>}
+        </div>
+    );
 }

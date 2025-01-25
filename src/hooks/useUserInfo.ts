@@ -1,23 +1,27 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+export interface UserInfo {
+    id: number;
+    name: string;
+    isLoggedIn: boolean;
+    onComming: string;
+    alarmTicket: number;
+    zzimTicket: number;
+    isSubscribe: boolean;
+    imgUrl: string;
+}
+
 interface UserState {
-    userInfo: {
-        id: number;
-        name: string;
-        isLoggedIn: boolean;
-        onComming: string;
-        alarmTicket: number;
-        zzimTicket: number;
-        isSubscribe: boolean;
-    };
+    userInfo: UserInfo;
     setUserState: (
         userId: number,
         userName: string,
         onCommingDate: string,
         alarmTicketCnt: number,
         zzimTicketCnt: number,
-        isSubscribe: boolean
+        isSubscribe: boolean,
+        imgUrl: string
     ) => void;
     removeUserState: () => void;
 }
@@ -33,8 +37,9 @@ export const useStore = create<UserState>()(
                 alarmTicket: 0,
                 zzimTicket: 0,
                 isSubscribe: false,
+                imgUrl: '',
             },
-            setUserState: (userId, userName, onCommingDate, alarmTicketCnt, zzimTicketCnt, isSubscribe) =>
+            setUserState: (userId, userName, onCommingDate, alarmTicketCnt, zzimTicketCnt, isSubscribe, imgUrl) =>
                 set({
                     userInfo: {
                         id: userId,
@@ -43,7 +48,8 @@ export const useStore = create<UserState>()(
                         onComming: onCommingDate,
                         alarmTicket: alarmTicketCnt,
                         zzimTicket: zzimTicketCnt,
-                        isSubscribe,
+                        isSubscribe: isSubscribe,
+                        imgUrl: imgUrl,
                     },
                 }),
             removeUserState: () =>
@@ -56,6 +62,7 @@ export const useStore = create<UserState>()(
                         alarmTicket: 0,
                         zzimTicket: 0,
                         isSubscribe: false,
+                        imgUrl: '',
                     },
                 }),
         }),
