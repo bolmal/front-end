@@ -4,8 +4,8 @@ import { useStore } from '@/hooks/useUserInfo';
 import Link from 'next/link';
 
 export default function UserOption() {
-    const isLoggedIn = useStore((state) => state.isLoggedIn);
-    const userName = useStore((state) => state.name);
+    const isLoggedIn = useStore((state) => state.userInfo.isLoggedIn);
+    const userName = useStore((state) => state.userInfo.name);
     const removeUserState = useStore((state) => state.removeUserState);
 
     if (isLoggedIn) {

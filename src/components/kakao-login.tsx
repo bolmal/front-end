@@ -10,7 +10,7 @@ export default function KakaoLogin() {
     const { data: session } = useSession();
     const handleKakaoLogin = useKakaoLogin();
     const router = useRouter();
-    const onComming = useStore((state) => state.onComming);
+    const onComming = useStore((state) => state.userInfo.onComming);
 
     useEffect(() => {
         if (session?.user?.email && session?.user.name) {

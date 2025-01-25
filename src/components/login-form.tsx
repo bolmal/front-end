@@ -30,7 +30,7 @@ export default function LoginForm() {
     };
 
     const setUserState = useStore((state) => state.setUserState);
-    const userName = useStore((state) => state.name);
+    const userName = useStore((state) => state.userInfo.name);
     useEffect(() => {
         if (userName) {
             console.log('유저이름 :', userName);
