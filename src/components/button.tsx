@@ -3,7 +3,7 @@
 import styled, { css } from 'styled-components';
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 
-export type ButtonSize = 'small' | 'medium' | 'large';
+export type ButtonSize = 'small' | 'medium' | 'large' | 'medium2';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: ReactNode;
@@ -29,13 +29,20 @@ const getButtonSize = (size: ButtonSize) => {
         case 'large':
             return css`
                 height: 60px;
-                width: 500px;
+                width: 33.07vw;
+                padding: 14px 14px;
+                font-size: 20px;
+            `;
+        case 'medium2':
+            return css`
+                height: 57px;
+                width: 17.01vw;
                 padding: 14px 14px;
                 font-size: 20px;
             `;
         default:
             return css`
-                width: 282px;
+                width: 18.651vw;
                 height: 60px;
                 padding: 14px 14px;
                 font-size: 20px;
