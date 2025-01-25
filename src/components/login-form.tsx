@@ -5,6 +5,7 @@ import Button from './button';
 import { useRouter } from 'next/navigation';
 import { useStore } from '@/hooks/useUserInfo';
 import { useEffect } from 'react';
+import KakaoLogin from './kakao-login';
 
 interface HookFormType {
     id: string;
@@ -28,8 +29,8 @@ export default function LoginForm() {
         router.push('/sign-up');
     };
 
-    const login = useStore((state) => state.login);
-    const userName = useStore((state) => state.name);
+    const setUserState = useStore((state) => state.setUserState);
+    const userName = useStore((state) => state.userInfo.name);
     useEffect(() => {
         if (userName) {
             console.log('유저이름 :', userName);
@@ -39,13 +40,15 @@ export default function LoginForm() {
     const onValid: SubmitHandler<HookFormType> = () => {
         const id = getValues('id');
         const pw = getValues('password');
-        login(
+        // 여기서 id pw 보내면 reponse로 유저 정보 반환해주는 fetch 추가
+        setUserState(
             1, // userId
             id, // userName (여기선 id 값 사용)
             '2024-03-14', // onCommingDate
             5, // alarmTicketCnt
             3, // zzimTicketCnt
-            false // isSubscribe
+            false, // isSubscribe
+            '' // imgUrl
         );
         // 로그인 성공 시 홈으로 페이지 이동
         router.push('/');
@@ -128,7 +131,7 @@ export default function LoginForm() {
                 </button>
             </div>
             <div>
-                <button>카카오</button>
+                <KakaoLogin></KakaoLogin>
                 <button>네이버</button>
             </div>
         </div>
