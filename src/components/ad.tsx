@@ -9,11 +9,14 @@ import test2 from '../../public/ㅂㄹㅁㄹ.svg';
 import test3 from '../../public/ㅂㄹㅁㄹ.svg';
 import test4 from '../../public/ㅂㄹㅁㄹ.svg';
 import test5 from '../../public/ㅂㄹㅁㄹ.svg';
-
 import Image from 'next/image';
-import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Autoplay } from 'swiper/modules';
+import { useState } from 'react';
+import { Swiper as SwiperType } from 'swiper';
 
 export default function Ad() {
+    const [swiper, setSwiper] = useState<SwiperType | null>(null);
+    const [activeIdx, setActiveIdx] = useState<number>(0);
     const testObj = [
         { id: '1', url: test1 },
         { id: '2', url: test2 },
@@ -21,14 +24,15 @@ export default function Ad() {
         { id: '4', url: test4 },
         { id: '5', url: test5 },
     ];
+    console.log(activeIdx);
     return (
         <div>
-            <div className="rounded-[20px] bg-white w-[894px] h-[320px]">
+            <div className="rounded-[20px] w-[894px] h-[343px]">
                 <Swiper
-                    modules={[Navigation, Pagination, Autoplay]} // 사용할 모듈
-                    // (Navigation : 이전/다음 버튼, Pagintation : 페이지 표시)
-                    navigation // Prev Next 버튼
-                    pagination={{ clickable: true }} // 페이지네이션 버튼 눌렀을 때 이동 가능
+                    onSwiper={setSwiper}
+                    onSlideChange={(swiper) => setActiveIdx(swiper.realIndex)}
+                    className="mb-[15px] bg-white"
+                    modules={[Autoplay]}
                     autoplay={{ delay: 3000 }} // 자동재생
                     loop={true} // 반복 여부
                 >
@@ -44,8 +48,20 @@ export default function Ad() {
                         </SwiperSlide>
                     ))}
                 </Swiper>
+                <div className="h-[8px] gap-[8px] flex">
+                    {testObj.map((_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => swiper?.slideTo(index)}
+                            className={`rounded-[50%] h-[8px] bg-[#e9e9e9] ${
+                                swiper?.realIndex === index
+                                    ? 'bg-primary-bg w-[20px] rounded-[100px]'
+                                    : 'bg-gray-300 w-[8px]'
+                            }`}
+                        ></button>
+                    ))}
+                </div>
             </div>
-            <div>점선</div>
         </div>
     );
 }
