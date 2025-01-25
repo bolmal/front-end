@@ -53,10 +53,10 @@ export default function Ad() {
                         <button
                             key={index}
                             onClick={() => swiper?.slideTo(index)}
-                            className={`rounded-[50%] h-[8px] bg-[#e9e9e9] ${
+                            className={`h-[8px] bg-[#e9e9e9] ${
                                 swiper?.realIndex === index
                                     ? 'bg-primary-bg w-[20px] rounded-[100px]'
-                                    : 'bg-gray-300 w-[8px]'
+                                    : 'bg-gray-300 w-[8px] rounded-[50%]'
                             }`}
                         ></button>
                     ))}
