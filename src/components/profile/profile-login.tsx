@@ -27,7 +27,11 @@ export default function ProfileLogin({ userInfo }: { userInfo: UserInfo }) {
                         <Image src={defaultImg} alt="타임어택" className="w-[20px] h-[20px] mr-[0.62vw]"></Image>
                         <span className="text-[15px] font-[500]">다가오는 티켓팅</span>
                     </div>
-                    <span className="font-[700] text-[15px]">{userInfo.onComming}전</span>
+                    {userInfo.onComming !== '' ? (
+                        <span className="font-[700] text-[15px]">{userInfo.onComming}전</span>
+                    ) : (
+                        <span className="font-[700] text-[15px]">없음</span>
+                    )}
                 </div>
             </div>
             <div className="rounded-[20px] bg-white w-[19.58vw] h-[70px] border-[1px] border-[#F0F0F0] py-[15px] px-[1.73vw] flex justify-between">
