@@ -5,6 +5,7 @@ export default function Home() {
         <div>
             <div className="bg-bg-default h-[383px] flex py-[20px] px-[120px]">
                 <Ad></Ad>
+                <div>유저 프로필</div>
             </div>
         </div>
     );
