@@ -32,7 +32,7 @@ export default function RecommendLogout() {
         <div className="relative w-full">
             <div className="flex justify-between">
                 <button
-                    className="absolute left-[-2%] top-[136px] -translate-y-1/2 w-[50px] h-[50px] bg-gray-500 rounded-[50%] z-50"
+                    className="absolute left-[-2%] top-[136px] -translate-y-1/2 w-[50px] h-[50px] rounded-[50%] z-50 bg-white shadow-[0_0_10px_rgba(99,99,99,0.2)]"
                     onClick={handlePrev}
                 >
                     {'<'}
@@ -70,7 +70,7 @@ export default function RecommendLogout() {
                     ))}
                 </Swiper>
                 <button
-                    className="absolute right-[-2%] top-[136px] -translate-y-1/2 w-[50px] h-[50px] bg-gray-500 rounded-[50%] z-50"
+                    className="absolute right-[-2%] top-[136px] -translate-y-1/2 w-[50px] h-[50px] bg-white shadow-[0_0_10px_rgba(99,99,99,0.2)] rounded-[50%] z-50"
                     onClick={handleNext}
                 >
                     {'>'}
