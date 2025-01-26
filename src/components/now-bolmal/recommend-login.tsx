@@ -55,7 +55,7 @@ export default function RecommendLogin() {
                                     alt={component.id.toString()}
                                 ></Image>
                                 <div className="w-[204px] mt-[20px]">
-                                    <div className="py-[9px] px-[10px] border-primary border-[2px] rounded-[10px] w-[8.54vw] mb-[10px] flex gap-[7px]">
+                                    <div className="py-[9px] px-[0.69vw] border-primary border-[2px] rounded-[10px] w-[9vw] mb-[10px] flex gap-[7px]">
                                         <Image className="w-[20px] h-[20px]" src={test1} alt="시간"></Image>
                                         <div className="text-[15px] font-[700] text-primary">{component.tag}</div>
                                     </div>
