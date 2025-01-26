@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import test1 from '../../../public/ㅂㄹㅁㄹ.svg';
 import Image from 'next/image';
-import { Autoplay } from 'swiper/modules';
+import { Autoplay, Navigation } from 'swiper/modules';
 import 'swiper/css/navigation';
 import { useState } from 'react';
 import { Swiper as SwiperType } from 'swiper';
@@ -29,24 +29,43 @@ export default function RecommendLogout() {
         { id: 10, url: test1 },
     ];
     return (
-        <div className="flex">
-            <button className="w-[50px] h-[50px] bg-gray-500 rounded-[50%] z-50" onClick={handlePrev}>
-                ←
-            </button>
-            <Swiper modules={[Autoplay]} autoplay={{ delay: 3000 }} loop={true} slidesPerView={5} onSwiper={setSwiper}>
-                {testObj.map((component) => (
-                    <SwiperSlide key={component.id}>
-                        <Image
-                            className="w-[204px] h-[272px] bg-black rounded-[10px]"
-                            src={component.url}
-                            alt={component.id.toString()}
-                        ></Image>
-                    </SwiperSlide>
-                ))}
-            </Swiper>
-            <button className="w-[50px] h-[50px] bg-gray-500 rounded-[50%] z-50" onClick={handleNext}>
-                →
-            </button>
+        <div className="relative w-full">
+            <div className="flex justify-between">
+                <button
+                    className="absolute left-[-2%] top-1/2 -translate-y-1/2 w-[50px] h-[50px] bg-gray-500 rounded-[50%] z-50"
+                    onClick={handlePrev}
+                >
+                    {'<'}
+                </button>
+                <Swiper
+                    modules={[Autoplay, Navigation]}
+                    autoplay={{ delay: 3000 }}
+                    loop={true}
+                    slidesPerView={5}
+                    navigation
+                    onSwiper={setSwiper}
+                    spaceBetween={50}
+                    className="w-full flex justify-between"
+                >
+                    {testObj.map((component) => (
+                        <SwiperSlide key={component.id} className="w-[20%] bg-bg-pink">
+                            <div className="flex flex-col justify-center">
+                                <Image
+                                    className="w-[204px] h-[272px] bg-black rounded-[10px]"
+                                    src={component.url}
+                                    alt={component.id.toString()}
+                                ></Image>
+                            </div>
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+                <button
+                    className="absolute right-[-2%] top-1/2 -translate-y-1/2 w-[50px] h-[50px] bg-gray-500 rounded-[50%] z-50"
+                    onClick={handleNext}
+                >
+                    {'>'}
+                </button>
+            </div>
         </div>
     );
 }
