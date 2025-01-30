@@ -3,10 +3,25 @@ import test1 from '../../../public/ㅂㄹㅁㄹ.svg';
 import Image from 'next/image';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Swiper as SwiperType } from 'swiper';
 
-export default function RecommendLogout() {
+interface Concert {
+    id: number;
+    url: string;
+    tag: string;
+    // date: string;
+    // title: string;
+    // performDate: string;
+}
+
+interface RecommendSwiperProps {
+    isLoggedIn: boolean;
+}
+
+export default function ConcertRecommend({ isLoggedIn }: RecommendSwiperProps) {
+    const [concerts, setConcerts] = useState<Concert[]>([]);
+
     const [swiper, setSwiper] = useState<SwiperType | null>(null);
 
     const handlePrev = () => {
@@ -16,18 +31,38 @@ export default function RecommendLogout() {
     const handleNext = () => {
         if (swiper) swiper.slideNext();
     };
-    const testObj = [
-        { id: 1, url: test1, tag: '1차 티켓 오픈' },
-        { id: 2, url: test1, tag: '팬클럽 선예매' },
-        { id: 3, url: test1, tag: '팬클럽 선예매' },
-        { id: 4, url: test1, tag: '1차 티켓 오픈' },
-        { id: 5, url: test1, tag: '팬클럽 선예매' },
-        { id: 6, url: test1, tag: '1차 티켓 오픈' },
-        { id: 7, url: test1, tag: '팬클럽 선예매' },
-        { id: 8, url: test1, tag: '1차 티켓 오픈' },
-        { id: 9, url: test1, tag: '팬클럽 선예매' },
-        { id: 10, url: test1, tag: '1차 티켓 오픈' },
-    ];
+
+    useEffect(() => {
+        const fetchConcerts = async () => {
+            try {
+                setConcerts([
+                    { id: 1, url: test1, tag: '1차 티켓 오픈' },
+                    { id: 2, url: test1, tag: '팬클럽 선예매' },
+                    { id: 3, url: test1, tag: '팬클럽 선예매' },
+                    { id: 4, url: test1, tag: '1차 티켓 오픈' },
+                    { id: 5, url: test1, tag: '팬클럽 선예매' },
+                    { id: 6, url: test1, tag: '1차 티켓 오픈' },
+                    { id: 7, url: test1, tag: '팬클럽 선예매' },
+                    { id: 8, url: test1, tag: '1차 티켓 오픈' },
+                    { id: 9, url: test1, tag: '팬클럽 선예매' },
+                    { id: 10, url: test1, tag: '1차 티켓 오픈' },
+                ]);
+                // isLoggedIn 상태에 따라 다른 API 엔드포인트 호출
+                // const endpoint = isLoggedIn
+                //     ? '/api/recommendations' // 로그인 됐을 때 호출할 API
+                //     : '/api/popular-concerts'; // 로그인 안됐을 때 호출할 API
+
+                // const response = await fetch(endpoint);
+                // const data = await response.json();
+                // setConcerts(data);
+            } catch (error) {
+                console.error('실패', error);
+            }
+        };
+
+        fetchConcerts();
+    }, [isLoggedIn]);
+
     return (
         <div className="relative w-full">
             <div className="flex justify-between">
@@ -46,18 +81,18 @@ export default function RecommendLogout() {
                     spaceBetween={50}
                     className="w-full flex justify-between"
                 >
-                    {testObj.map((component) => (
-                        <SwiperSlide key={component.id} className="w-[20%]">
+                    {concerts.map((concert) => (
+                        <SwiperSlide key={concert.id} className="w-[20%]">
                             <div className="flex flex-col items-center">
                                 <Image
                                     className="w-[204px] h-[272px] bg-black rounded-[10px]"
-                                    src={component.url}
-                                    alt={component.id.toString()}
+                                    src={concert.url}
+                                    alt={concert.id.toString()}
                                 ></Image>
                                 <div className="w-[204px] mt-[20px]">
                                     <div className="py-[9px] px-[0.69vw] border-primary border-[2px] rounded-[10px] w-[9vw] mb-[10px] flex gap-[7px]">
                                         <Image className="w-[20px] h-[20px]" src={test1} alt="시간"></Image>
-                                        <div className="text-[15px] font-[700] text-primary">{component.tag}</div>
+                                        <div className="text-[15px] font-[700] text-primary">{concert.tag}</div>
                                     </div>
                                     <div className="mb-[6px] text-[20px] font-[700] text-primary">
                                         2024.01.09(목) 12PM
