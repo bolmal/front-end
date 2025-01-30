@@ -5,10 +5,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import test1 from '../../public/ㅂㄹㅁㄹ.svg';
-import test2 from '../../public/ㅂㄹㅁㄹ.svg';
-import test3 from '../../public/ㅂㄹㅁㄹ.svg';
-import test4 from '../../public/ㅂㄹㅁㄹ.svg';
-import test5 from '../../public/ㅂㄹㅁㄹ.svg';
 import Image from 'next/image';
 import { Autoplay } from 'swiper/modules';
 import { useState } from 'react';
@@ -19,10 +15,10 @@ export default function Ad() {
     const [activeIdx, setActiveIdx] = useState<number>(0);
     const testObj = [
         { id: '1', url: test1 },
-        { id: '2', url: test2 },
-        { id: '3', url: test3 },
-        { id: '4', url: test4 },
-        { id: '5', url: test5 },
+        { id: '2', url: test1 },
+        { id: '3', url: test1 },
+        { id: '4', url: test1 },
+        { id: '5', url: test1 },
     ];
     console.log(activeIdx);
     return (
